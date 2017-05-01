@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 stores = [
@@ -37,7 +37,7 @@ def get_store(name):
 # GET /store
 @app.route('/store/', methods=['GET'])
 def get_stores():
-    pass
+    return jsonify({'stores': stores})
 
 
 # POST /store/<string:name>/item {name:,price:}
