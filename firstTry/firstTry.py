@@ -24,19 +24,19 @@ def get_store(name):
 
 # GET /store
 @app.route('/store/', methods=['GET'])
-def get_store():
+def get_stores():
     pass
 
 
 # POST /store/<string:name>/item {name:,price:}
-@app.route('store/<string:name>/item')
-def create_store(name):
+@app.route('/store/<string:name>/item')
+def create_item_in_store(name):
     pass
 
 
 # GET /store/<string:name>/item
 @app.route('/store/<string:name>/item', methods=['GET'])
-def get_store(name):
+def get_items_in_store(name):
     pass
 
 
