@@ -39,11 +39,17 @@ def create_store():
 # GET /store/<string:name>
 @app.route('/store/<string:name>', methods=['GET'])
 def get_store(name):
-    pass
+    # if the store name matches,return that one
+    for store in stores:
+        if store['name'] == name:
+            return jsonify(store)
+    # if no math,return error message
+
+    return jsonify({'message': 'store not found'})
 
 
 # GET /store
-@app.route('/store/', methods=['GET'])
+@app.route('/store', methods=['GET'])
 def get_stores():
     return jsonify({'stores': stores})
 
@@ -51,13 +57,27 @@ def get_stores():
 # POST /store/<string:name>/item {name:,price:}
 @app.route('/store/<string:name>/item')
 def create_item_in_store(name):
-    pass
+    request_data = request.get_json();
+    for store in stores:
+        if store['name'] == name:
+            new_item = {
+                'name': request_data[name],
+                'price': request_data['price']
+            }
+            store['items'].append(new_item)
+            return jsonify(new_item)
+
+        return jsonify({'message': 'store not found'})
 
 
 # GET /store/<string:name>/item
 @app.route('/store/<string:name>/item', methods=['GET'])
 def get_items_in_store(name):
-    pass
+    for store in stores:
+        if store['name'] == name:
+            return jsonify({'items': store['items']})
+
+    return jsonify({'message': 'store not found'})
 
 
 if __name__ == '__main__':
