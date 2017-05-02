@@ -1,5 +1,5 @@
 from flask import Flask, request
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required
 from security import authenticate, identity
 
@@ -50,7 +50,12 @@ class Item(Resource):
             return {"message": "no item deleted"}
 
     def put(self, name):
-        request_data = request.get_json(silent=True)
+        parser = reqparse.RequestParser()
+        parser.add_argument('price',
+                            type=float,
+                            required=True,
+                            help="This field must need")
+        request_data = parser.parse_args();
 
         finded_item = find_item_in_list(items, name)
 
