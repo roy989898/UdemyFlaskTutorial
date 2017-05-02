@@ -49,6 +49,10 @@ class UserRegister(Resource):
         connection = sqlite3.connect('data.sqlite')
         cursor = connection.cursor()
         query = "INSERT INTO users VALUES(NULL,?,?)"
+
+        user = User.find_by_username(data['username'])
+        if user is not None:
+            return {"message": "User already exist"}, 201
         cursor.execute(query, (data['username'], data['password']))
         connection.commit()
         connection.close()
