@@ -29,7 +29,9 @@ class Item(Resource):
             return {'item': None}, 404
 
     def post(self, name):
-        request_data = request.get_json(silent=True)
+        parser = reqparse.RequestParser()
+        parser.add_argument('price', type=float, requirde=True, help="must have")
+        request_data = parser.parse_args()
         finded_item = find_item_in_list(items, name)
 
         if finded_item is not None:
