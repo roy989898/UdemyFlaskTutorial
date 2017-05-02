@@ -1,12 +1,20 @@
 from flask import Flask
+from flask_restful import Resource, Api
 
 app = Flask(__name__)
+api = Api(app)
 
 
-@app.route('/')
-def hello_world():
-    return 'Hello World!'
+class Student(Resource):
+    def get(self, name):
+        return {'student': name}
 
 
-if __name__ == '__main__':
-    app.run(port=4000)
+api.add_resource(Student, '/student/<string:name>')
+
+# @app.route('/')
+# def hello_world():
+#     return 'Hello World!'
+
+
+app.run(port=4000)
