@@ -31,6 +31,30 @@ class Item(Resource):
         items.append(item)
         return item, 201
 
+    def delete(self, name):
+        for item in items:
+            if item['name'] == name:
+                items.remove(item)
+                return {"message": "item deleted"}
+
+        return {"message": "no item deleted"}
+
+    def put(self, name):
+        request_data = request.get_json(silent=True)
+        for item in items:
+            if item['name'] == name:
+                item['name'] = name
+                item['price'] = request_data['price']
+                return {"message": "item updated"}
+
+        # can't find item
+        new_item = {'name': name,
+                    'price': request_data['price']
+                    }
+        items.append(new_item)
+
+        return {"message": "item create"}
+
 
 class ItemList(Resource):
     def get(self):
