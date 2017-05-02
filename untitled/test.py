@@ -5,7 +5,7 @@ connection = sqlite3.connect('data.sqlite')
 cursor = connection.cursor()
 
 # create table
-create_table = "CREATE TABLE IF NOT EXISTS users(id INT,user TEXT,password TEXT)"
+create_table = "CREATE TABLE IF NOT EXISTS users(id INT,username TEXT,password TEXT)"
 cursor.execute(create_table)
 
 # insert a row

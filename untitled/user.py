@@ -12,7 +12,7 @@ class User:
     def find_by_username(cls, username):
         connection = sqlite3.connect('data.sqlite')
         cursor = connection.cursor()
-        query = "SELECT * FROM users WHERE user=?"
+        query = "SELECT * FROM users WHERE username=?"
         result = cursor.execute(query, (username,))  # , ensure th is a tupe
         row = result.fetchone()  # only get the first one
         if row is not None:
