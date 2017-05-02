@@ -17,6 +17,10 @@ class Item(Resource):
 
     def post(self, name):
         request_data = request.get_json(silent=True)
+        
+        for item in items:
+            if item['name'] == name:
+                return {'message': "iteam with name " + name + " already existes"}, 400
 
         item = {'name': name, 'price': request_data['price']}
         items.append(item)
